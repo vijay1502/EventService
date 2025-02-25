@@ -28,7 +28,7 @@ public class EventController {
     }
     @GetMapping("/event/{id}")
     public ResponseEntity<EventEntity> getEventById(@PathVariable Long id){
-        return new ResponseEntity<>(eventService.getEventById(id).get(),HttpStatus.FOUND);
+        return new ResponseEntity<>(eventService.getEventById(id),HttpStatus.FOUND);
     }
     @PostMapping("/postEvent")
     public ResponseEntity<EventEntity> createEvent(@RequestBody EventEntity eventEntity){
@@ -52,5 +52,11 @@ public class EventController {
             @RequestParam(required = false) String category
     ) {
         return ResponseEntity.ok(eventService.getFilteredEvents(status, location, date, category));
+    }
+
+    @PutMapping("/{id}/updateEvents")
+    public ResponseEntity<Void> updateAvailableSeats(@PathVariable Long id,@RequestParam int seats){
+        eventService.updateSeats(id,seats);
+        return ResponseEntity.ok().build();
     }
 }

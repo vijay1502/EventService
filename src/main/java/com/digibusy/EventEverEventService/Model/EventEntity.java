@@ -43,6 +43,8 @@ public class EventEntity extends AuditableEntity{
 
     @Column(nullable = false)
     private String organizerId;
+    @Column(nullable = false)
+    private int availableSeats;
 
     @Column(nullable = false, length = 50)
     private String status;
@@ -50,7 +52,7 @@ public class EventEntity extends AuditableEntity{
     public EventEntity() {
     }
 
-    public EventEntity(Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, String status) {
+    public EventEntity(Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -61,10 +63,11 @@ public class EventEntity extends AuditableEntity{
         this.price = price;
         this.capacity = capacity;
         this.organizerId = organizerId;
+        this.availableSeats = availableSeats;
         this.status = status;
     }
 
-    public EventEntity(LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, String status) {
+    public EventEntity(LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status) {
         super(createdAt, updatedAt, createdBy, updatedBy);
         this.id = id;
         this.title = title;
@@ -76,6 +79,7 @@ public class EventEntity extends AuditableEntity{
         this.price = price;
         this.capacity = capacity;
         this.organizerId = organizerId;
+        this.availableSeats = availableSeats;
         this.status = status;
     }
 
@@ -167,6 +171,14 @@ public class EventEntity extends AuditableEntity{
         this.status = status;
     }
 
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     @Override
     public String toString() {
         return "EventEntity{" +
@@ -180,6 +192,7 @@ public class EventEntity extends AuditableEntity{
                 ", price=" + price +
                 ", capacity=" + capacity +
                 ", organizerId='" + organizerId + '\'' +
+                ", availableSeats=" + availableSeats +
                 ", status='" + status + '\'' +
                 '}';
     }

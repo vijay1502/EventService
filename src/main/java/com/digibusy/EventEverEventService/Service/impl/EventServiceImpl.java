@@ -25,8 +25,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Optional<EventEntity> getEventById(Long id) {
-        return eventRepository.findById(id);
+    public EventEntity getEventById(Long id) {
+        return eventRepository.findById(id).orElseThrow(() -> new RuntimeException("Event Not Found!"));
     }
 
     @Override
@@ -56,6 +56,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventEntity createEvent(EventEntity eventEntity) {
+        eventEntity.setAvailableSeats(eventEntity.getCapacity());
         return eventRepository.save(eventEntity);
     }
 
@@ -108,5 +109,15 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventEntity> getAllEventsInOpenStateAndLocationAndDate(String status, String location, LocalDate date) {
         return eventRepository.findByDateAndLocationAndStatus(date,location,status);
+    }
+
+    @Override
+    public void updateSeats(Long eventId, int seatChange) {
+        EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event Not Found!"));
+        if(eventEntity.getAvailableSeats() + seatChange < 0){
+            throw new EventException("Not enough seats available");
+        }
+        eventEntity.setAvailableSeats(eventEntity.getAvailableSeats()+seatChange);
+        eventRepository.save(eventEntity);
     }
 }

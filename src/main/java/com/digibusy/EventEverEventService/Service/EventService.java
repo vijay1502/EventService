@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface EventService {
     public List<EventEntity> getAllEvents();
-    public Optional<EventEntity> getEventById(Long id);
+    public EventEntity getEventById(Long id);
     public List<EventEntity> getAllByCategory(String category);
     public List<EventEntity> getFilteredEvents(String status, String location, LocalDate date, String category);
     public EventEntity createEvent(EventEntity eventEntity);
@@ -20,5 +20,5 @@ public interface EventService {
     public List<EventEntity> getAllEventsInOpenStateAndLocation(String status,String location);
     public List<EventEntity> getAllEventsInOpenStateAndLocationAndDate(String status, String location, LocalDate date);
 
-
+    public void updateSeats(Long eventId,int seatChange);
 }
