@@ -54,7 +54,7 @@ public class EventController {
         return ResponseEntity.ok(eventService.getFilteredEvents(status, location, date, category));
     }
 
-    @PutMapping("/{id}/updateEvents")
+    @PutMapping("/{id}/updateSeats")
     public ResponseEntity<Void> updateAvailableSeats(@PathVariable Long id,@RequestParam int seats){
         eventService.updateSeats(id,seats);
         return ResponseEntity.ok().build();
