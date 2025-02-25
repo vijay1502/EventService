@@ -24,7 +24,7 @@ public class EventController {
 
     @GetMapping("/allEvents")
     public ResponseEntity<List<EventEntity>> getAllEvents(){
-        return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.FOUND);
+        return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
     }
     @GetMapping("/event/{id}")
     public ResponseEntity<EventEntity> getEventById(@PathVariable Long id){

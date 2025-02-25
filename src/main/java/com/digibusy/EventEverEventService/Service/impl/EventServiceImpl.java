@@ -114,10 +114,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public void updateSeats(Long eventId, int seatChange) {
         EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event Not Found!"));
-        if(eventEntity.getAvailableSeats() + seatChange < 0){
+        if(eventEntity.getAvailableSeats() < seatChange){
             throw new EventException("Not enough seats available");
         }
-        eventEntity.setAvailableSeats(eventEntity.getAvailableSeats()+seatChange);
+        System.out.println("Event changes:"+ (eventEntity.getAvailableSeats()-seatChange));
+        eventEntity.setAvailableSeats(eventEntity.getAvailableSeats()-seatChange);
         eventRepository.save(eventEntity);
     }
 }
