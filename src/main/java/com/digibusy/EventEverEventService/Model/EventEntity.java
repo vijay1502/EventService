@@ -1,5 +1,6 @@
 package com.digibusy.EventEverEventService.Model;
 
+import com.digibusy.EventEverEventService.Constant.EventType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,11 +49,14 @@ public class EventEntity extends AuditableEntity{
 
     @Column(nullable = false, length = 50)
     private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EventType eventType;
 
     public EventEntity() {
     }
 
-    public EventEntity(Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status) {
+    public EventEntity(Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status, EventType eventType) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -65,9 +69,10 @@ public class EventEntity extends AuditableEntity{
         this.organizerId = organizerId;
         this.availableSeats = availableSeats;
         this.status = status;
+        this.eventType = eventType;
     }
 
-    public EventEntity(LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status) {
+    public EventEntity(LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, Long id, String title, String description, String category, String location, LocalDateTime startTime, LocalDateTime endTime, BigDecimal price, Integer capacity, String organizerId, int availableSeats, String status, EventType eventType) {
         super(createdAt, updatedAt, createdBy, updatedBy);
         this.id = id;
         this.title = title;
@@ -81,6 +86,7 @@ public class EventEntity extends AuditableEntity{
         this.organizerId = organizerId;
         this.availableSeats = availableSeats;
         this.status = status;
+        this.eventType = eventType;
     }
 
     public Long getId() {
@@ -177,6 +183,14 @@ public class EventEntity extends AuditableEntity{
 
     public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
 
     @Override

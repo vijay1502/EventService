@@ -91,6 +91,7 @@ public class EventServiceImpl implements EventService {
             eventEntityUpdate.setEndTime(eventEntity.getEndTime());
             eventEntityUpdate.setOrganizerId(eventEntity.getOrganizerId());
             eventEntityUpdate.setTitle(eventEntity.getTitle());
+            eventEntityUpdate.setEventType(eventEntity.getEventType());
             return eventRepository.save(eventEntityUpdate);
         }
         return "No Such Event found";
