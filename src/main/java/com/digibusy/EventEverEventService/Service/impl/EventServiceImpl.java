@@ -5,6 +5,7 @@ import com.digibusy.EventEverEventService.Exception.EventException;
 import com.digibusy.EventEverEventService.Model.EventEntity;
 import com.digibusy.EventEverEventService.Repository.EventRepository;
 import com.digibusy.EventEverEventService.Service.EventService;
+import com.digibusy.EventEverEventService.Service.EventServiceNotification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class EventServiceImpl implements EventService {
     @Autowired
     EventRepository eventRepository;
+
     @Override
     public List<EventEntity> getAllEvents() {
         return eventRepository.findAll();
@@ -57,6 +59,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventEntity createEvent(EventEntity eventEntity) {
         eventEntity.setAvailableSeats(eventEntity.getCapacity());
+        EventServiceNotification eventServiceNotification = new EventServiceNotification();
+        eventServiceNotification.notifyUser("pruthvikrishna97@gmail.com","Event created successfully");
         return eventRepository.save(eventEntity);
     }
 
@@ -92,6 +96,7 @@ public class EventServiceImpl implements EventService {
             eventEntityUpdate.setOrganizerId(eventEntity.getOrganizerId());
             eventEntityUpdate.setTitle(eventEntity.getTitle());
             eventEntityUpdate.setEventType(eventEntity.getEventType());
+            eventEntityUpdate.setStatus(eventEntity.getStatus());
             return eventRepository.save(eventEntityUpdate);
         }
         return "No Such Event found";
